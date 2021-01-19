@@ -59,9 +59,7 @@
  
  
  echo "Proxy Installation Done !!!"
- 
- systemctl start zabbix-proxy
- systemctl enable zabbix-proxy
+
 
  
  
