@@ -103,3 +103,4 @@
  systemctl daemon-reload
  systemctl restart snmpd
  systemctl restart snmptrapd
+ systemctl restart zabbix-proxy
