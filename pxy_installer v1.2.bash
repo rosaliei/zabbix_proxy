@@ -68,7 +68,7 @@
  #Part3
  # SNMP TRAP INSTALLATION
  
- yum install net-snmp net-snmp-utils net-snmp-perl
+ yum install net-snmp net-snmp-utils net-snmp-perl -y
  
  # MIB INSTALLATION
  
