@@ -1,7 +1,6 @@
- #ZABBIX DB & Proxy Installer for 5.0 ENV
- 
  #ENV Setup
  systemctl stop firewalld
+ systemctl disable firewalld
  setenforce 0 
  yum update -y
  yum install wget git vim -y
@@ -66,14 +65,17 @@
  systemctl start zabbix-proxy
  systemctl enable zabbix-proxy
  
- # Part 3
+ #Part3
+ # SNMP TRAP INSTALLATION
+ 
+ yum install net-snmp net-snmp-utils net-snmp-perl
+ 
  # MIB INSTALLATION
  
- cd /tmp && git pull https://gitlab.gtmh-telecom.com/hsumyatthwe/mib-collection.git
- \cp -rvf /tmp/mib-collection/mibs/ /usr/share/snmp/mibs/ 
+ cd /tmp && git clone https://gitlab.gtmh-telecom.com/hsumyatthwe/mib-collection.git
+ \cp -rvf /tmp/mib-collection/mibs/ /usr/share/snmp/mibs/
  
- #Part4
- # SNMP TRAP INSTALLATION
+ #SNMP TRAP Configuration
  
  cd /tmp &&  wget https://cdn.zabbix.com/zabbix/sources/stable/5.0/zabbix-5.0.7.tar.gz
  tar -zxvf /tmp/zabbix-5.0.7.tar.gz
@@ -83,7 +85,7 @@
  echo 'perl do "/usr/bin/zabbix_trap_receiver.pl";' >> /etc/snmp/snmptrapd.conf
  echo
  echo "###Option: StartSNMPTrapper" >> /etc/zabbix/zabbix_proxy.conf
- ehco "StartSNMPTrapper=1" >> /etc/zabbix/zabbix_proxy.conf
+ echo "StartSNMPTrapper=1" >> /etc/zabbix/zabbix_proxy.conf
  
  systemctl restart snmptrapd
  systemctl enable snmptrapd
@@ -92,7 +94,6 @@
  
  #Confirming SNMPTRAP working with Zabbix Perl Trap Receiver
  snmptrapd -On 
- 
  
  echo "ZABBIX LOG LOCATION : $(cat /usr/bin/zabbix_trap_receiver.pl | grep '^$SNMPTrapperFile' | awk '{print $3}')"
  systemctl restart zabbix-proxy
@@ -103,16 +104,3 @@
  systemctl daemon-reload
  systemctl restart snmpd
  systemctl restart snmptrapd
- 
- 
- 
- 
- 
-
- 
- 
- 
- 
-
- 
- 
