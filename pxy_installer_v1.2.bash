@@ -19,7 +19,7 @@
  #Part2
  #Zabbix Proxy Configuration
  
- sed -i '29s/Server/#Server/' /etc/zabbix/zabbix_proxy.conf
+ sed -i '30s/Server/#Server/' /etc/zabbix/zabbix_proxy.conf
 
  echo >> /etc/zabbix/zabbix_proxy.conf
  echo >> /etc/zabbix/zabbix_proxy.conf
