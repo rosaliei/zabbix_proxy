@@ -2,7 +2,6 @@
  systemctl stop firewalld
  systemctl disable firewalld
  setenforce 0 
- yum update -y
  yum install wget git vim -y
  
  #Part1
