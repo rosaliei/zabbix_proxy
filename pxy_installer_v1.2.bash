@@ -12,9 +12,10 @@
  
  #Zabbix Proxy DB Configuration
  sudo -i -u postgres createuser zabbix
- sudo -i -u postgres createuser --pwprompt zabbix
+ sudo -i -u postgres psql -c "ALTER USER zabbix WITH PASSWORD 'zabbixproxy123';"
  sudo -i -u postgres createdb -O zabbix zabbix_proxy
- zcat /usr/share/doc/zabbix-proxy-pgsql/schema.sql.gz | sudo -i -u zabbix psql zabbix_proxy
+ zcat /usr/share/doc/zabbix-proxy-pgsql/schema.sql.gz | sudo -i -u postgres psql zabbix_proxy
+
  
  #Part2
  #Zabbix Proxy Configuration
@@ -39,7 +40,7 @@
  echo "EnableRemoteCommands=1" >> /etc/zabbix/zabbix_proxy.conf 
  echo "DBHost=localhost" >> /etc/zabbix/zabbix_proxy.conf
  echo "DBName=zabbix_proxy" >> /etc/zabbix/zabbix_proxy.conf 
- echo "DBUser=zabbix" >> /etc/zabbix/zabbix_proxy.conf 
+ echo "DBUser=postgres" >> /etc/zabbix/zabbix_proxy.conf 
  echo "DBPassword=zabbixproxy1234" >> /etc/zabbix/zabbix_proxy.conf 
  echo "ProxyLocalBuffer=24" >> /etc/zabbix/zabbix_proxy.conf
  echo "ProxyOfflineBuffer=168">> /etc/zabbix/zabbix_proxy.conf
