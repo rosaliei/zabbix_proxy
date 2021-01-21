@@ -12,8 +12,8 @@
  
  #Zabbix Proxy DB Configuration
  sudo -i -u postgres createuser zabbix
- sudo -u postgres createuser --pwprompt zabbix
- sudo -u postgres createdb -O zabbix zabbix
+ sudo -i -u postgres createuser --pwprompt zabbix
+ sudo -i -u postgres createdb -O zabbix zabbix_proxy
  zcat /usr/share/doc/zabbix-proxy-pgsql/schema.sql.gz | sudo -i -u zabbix psql zabbix_proxy
  
  #Part2
