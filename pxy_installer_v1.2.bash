@@ -12,10 +12,9 @@
  
  #Zabbix Proxy DB Configuration
  sudo -i -u postgres createuser zabbix
- sudo -i -u postgres psql -c "ALTER USER zabbix WITH PASSWORD 'zabbixproxy123';"
- sudo -i -u postgres createdb -O zabbix zabbix_proxy
+ sudo -u postgres createuser --pwprompt zabbix
+ sudo -u postgres createdb -O zabbix zabbix
  zcat /usr/share/doc/zabbix-proxy-pgsql/schema.sql.gz | sudo -i -u zabbix psql zabbix_proxy
- sudo -i -u postgres psql -c "GRANT ALL PRIVILEGES ON DATABASE zabbix_proxy TO zabbix;"
  
  #Part2
  #Zabbix Proxy Configuration
