@@ -40,7 +40,7 @@
  echo "EnableRemoteCommands=1" >> /etc/zabbix/zabbix_proxy.conf 
  echo "DBHost=localhost" >> /etc/zabbix/zabbix_proxy.conf
  echo "DBName=zabbix_proxy" >> /etc/zabbix/zabbix_proxy.conf 
- echo "DBUser=postgres" >> /etc/zabbix/zabbix_proxy.conf 
+ echo "DBUser=zabbix" >> /etc/zabbix/zabbix_proxy.conf 
  echo "DBPassword=zabbixproxy1234" >> /etc/zabbix/zabbix_proxy.conf 
  echo "ProxyLocalBuffer=24" >> /etc/zabbix/zabbix_proxy.conf
  echo "ProxyOfflineBuffer=168">> /etc/zabbix/zabbix_proxy.conf
