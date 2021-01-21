@@ -14,10 +14,12 @@
  sudo -i -u postgres createuser zabbix
  sudo -i -u postgres psql -c "ALTER USER zabbix WITH PASSWORD 'zabbixproxy123';"
  sudo -i -u postgres createdb -O zabbix zabbix_proxy
- zcat /usr/share/doc/zabbix-proxy-pgsql/schema.sql.gz | psql zabbix_proxy
+ zcat /usr/share/doc/zabbix-proxy-pgsql/schema.sql.gz | sudo -i -u zabbix psql zabbix_proxy
  
  #Part2
  #Zabbix Proxy Configuration
+ 
+ cp -rv /etc/zabbix/zabbix_proxy.conf /etc/zabbix/zabbix_proxy.conf.bak
  
  sed -i '30s/Server/#Server/' /etc/zabbix/zabbix_proxy.conf
 
