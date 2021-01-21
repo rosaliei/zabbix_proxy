@@ -21,24 +21,26 @@
  
  cp -rv /etc/zabbix/zabbix_proxy.conf /etc/zabbix/zabbix_proxy.conf.bak
  
+ sed -i '49s/Hostname/#Hostname/' /etc/zabbix/zabbix_proxy.conf
  sed -i '30s/Server/#Server/' /etc/zabbix/zabbix_proxy.conf
+ sed -i '102s/LogFile/#LogFile/' /etc/zabbix/zabbix_proxy.conf
+ sed -i '173s/DBName/#DBName/' /etc/zabbix/zabbix_proxy.conf
+ sed -i '188s/DBUser/#DBUser/' /etc/zabbix/zabbix_proxy.conf
 
  echo >> /etc/zabbix/zabbix_proxy.conf
  echo >> /etc/zabbix/zabbix_proxy.conf
  echo #Active Proxy Config >> /etc/zabbix/zabbix_proxy.conf
  echo >> /etc/zabbix/zabbix_proxy.conf
  echo >> /etc/zabbix/zabbix_proxy.conf
- echo "ProxyMode=0" >> /etc/zabbix/zabbix_proxy.conf
- echo "Server=10.63.18.151" >> /etc/zabbix/zabbix_proxy.conf
- echo "LogFile=/var/log/zabbix/zabbix_proxy.log" >> /etc/zabbix/zabbix_proxy.conf
+ echo "Hostname=$(hostname)" >> /etc/zabbix/zabbix_proxy.conf
+ echo "ProxyMode=0" >> /etc/zabbix/zabbix_proxy.conf 
+ echo "Server=10.63.18.151" >> /etc/zabbix/zabbix_proxy.conf 
  echo "LogFileSize=100" >> /etc/zabbix/zabbix_proxy.conf
- echo "EnableRemoteCommands=1" >> /etc/zabbix/zabbix_proxy.conf
- echo "PidFile=/var/run/zabbix/zabbix_proxy.pid" >> /etc/zabbix/zabbix_proxy.conf
- echo "SocketDir=/var/run/zabbix" >> /etc/zabbix/zabbix_proxy.conf
+ echo "EnableRemoteCommands=1" >> /etc/zabbix/zabbix_proxy.conf 
  echo "DBHost=localhost" >> /etc/zabbix/zabbix_proxy.conf
- echo "DBName=zabbix_proxy" >> /etc/zabbix/zabbix_proxy.conf
- echo "DBUser=zabbix" >> /etc/zabbix/zabbix_proxy.conf
- echo "DBPassword=zabbixproxy1234" >> /etc/zabbix/zabbix_proxy.conf
+ echo "DBName=zabbix_proxy" >> /etc/zabbix/zabbix_proxy.conf 
+ echo "DBUser=zabbix" >> /etc/zabbix/zabbix_proxy.conf 
+ echo "DBPassword=zabbixproxy1234" >> /etc/zabbix/zabbix_proxy.conf 
  echo "ProxyLocalBuffer=24" >> /etc/zabbix/zabbix_proxy.conf
  echo "ProxyOfflineBuffer=168">> /etc/zabbix/zabbix_proxy.conf
  echo "HeartbeatFrequency=60" >> /etc/zabbix/zabbix_proxy.conf
@@ -59,9 +61,6 @@
  echo "StartDBSyncers=12" >> /etc/zabbix/zabbix_proxy.conf
  echo "HistoryCacheSize=512M" >> /etc/zabbix/zabbix_proxy.conf
  echo "HistoryIndexCacheSize=12M" >> /etc/zabbix/zabbix_proxy.conf
- echo "Timeout=5" >> /etc/zabbix/zabbix_proxy.conf
- echo "ExternalScripts=/usr/lib/zabbix/externalscripts" >> /etc/zabbix/zabbix_proxy.conf
- echo "LogSlowQueries=3000" >> /etc/zabbix/zabbix_proxy.conf
  
  systemctl start zabbix-proxy
  systemctl enable zabbix-proxy
@@ -82,6 +81,7 @@
  tar -zxvf /tmp/zabbix-5.0.7.tar.gz
  cp /tmp/zabbix-5.0.7/misc/snmptrap/zabbix_trap_receiver.pl /usr/bin/
  chmod +x /usr/bin/zabbix_trap_receiver.pl
+ echo >> /etc/snmp/snmptrapd.conf
  echo "disableAuthorization yes" >> /etc/snmp/snmptrapd.conf
  echo 'perl do "/usr/bin/zabbix_trap_receiver.pl";' >> /etc/snmp/snmptrapd.conf
  echo
